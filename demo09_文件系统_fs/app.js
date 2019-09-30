@@ -145,8 +145,8 @@ var buf = new Buffer.alloc(1024);
 fs.open("input.txt", "r+", function(err, fd) {
   if (err) {
     return console.error(err);
-  } 
-  console.log("截取10字节内的文件内容，超出部分将被去除。"); 
+  }
+  console.log("截取10字节内的文件内容，超出部分将被去除。");
   // 截取文件
   fs.ftruncate(fd, 10, function(err) {
     if (err) {
@@ -157,11 +157,11 @@ fs.open("input.txt", "r+", function(err, fd) {
     fs.read(fd, buf, 0, buf.length, 0, function(err, bytes) {
       if (err) {
         console.log(err);
-      } 
+      }
       // 仅输出读取的字节
       if (bytes > 0) {
         console.log(buf.slice(0, bytes).toString());
-      } 
+      }
       // 关闭文件
       fs.close(fd, function(err) {
         if (err) {
@@ -175,4 +175,62 @@ fs.open("input.txt", "r+", function(err, fd) {
 
 /**
  * 删除文件 fs.unlink(path, callback)
+ * path - 文件路径。
+ * callback - 回调函数，没有参数。
  */
+
+console.log("准备删除文件");
+// fs.unlink("./input.txt", function(err) {
+//   if (err) {
+//     return console.error(err);
+//   }
+//   console.log("删除成功");
+// });
+
+/**
+ * 创建目录 fs.mkdir(path[, options], callback)
+ * path - 文件路径。
+ * options 参数可以是：
+ *        recursive - 是否以递归的方式创建目录，默认为 false。
+ *        mode - 设置目录权限，默认为 0777。
+ * callback - 回调函数，没有参数。
+ */
+
+// console.log("准备创建目录");
+// fs.mkdir("test", function(err) {
+//   if (err) {
+//     return console.error(err);
+//   }
+//   console.log("创建目录成功1");
+// });
+// // 可以添加 recursive: true 参数，不管创建的目录 test 是否存在：
+// fs.mkdir("test/apple", { recursive: true }, err => {
+//   if (err) throw err;
+//   console.log("创建目录成功2");
+// });
+
+/**
+ * 读取目录 fs.readdir(path, callback)
+ * path - 文件路径。
+ * callback - 回调函数，回调函数带有两个参数err, files，err 为错误信息，files 为 目录下的文件数组列表。
+ */
+console.log("准备读取目录");
+fs.readdir("test", (err, files) => {
+  if (err) throw err;
+  files.forEach(file => {
+    console.log("目录读取成功", file);
+  });
+});
+
+/**
+ * 删除目录 fs.rmdir(path, callback)
+ * path - 文件路径。
+ * callback - 回调函数，没有参数。
+ */
+console.log("准备删除目录");
+fs.rmdir("test/apple", err => {
+  if (err) {
+    return console.error(err);
+  }
+  console.log("目录删除成功");
+});
