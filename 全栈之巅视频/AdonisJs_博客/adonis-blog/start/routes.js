@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 /*
 |--------------------------------------------------------------------------
@@ -13,12 +13,11 @@
 |
 */
 
-const Route = use('Route')
+const Route = use("Route");
 
-Route.get('/', ({ request }) => {
-  return { greeting: 'Hello world in JSON' }
-})
-
+Route.get("/", "SiteController.index");
+Route.get("posts", "PostController.index");
+Route.get("posts/:id", "PostController.show");
 // Uncomment the following code to test with mongodb
 
 // Route.get('/test', async () => {
