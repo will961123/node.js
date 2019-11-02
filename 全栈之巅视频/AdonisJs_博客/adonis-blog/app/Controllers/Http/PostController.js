@@ -1,12 +1,15 @@
-'use strict'
-
+'use strict';
+const Post = use('App/Models/Post');
 class PostController {
-    index ({request}){
-        return 'posts ' + request.input('page')
-    }
-    show ({params}){
-        return 'posts ' + params.id
-    }
+  async index({ request }) {
+    await Post.create({
+        title:'1'
+    });
+    return await Post.all();
+  }
+  show({ params }) {
+    return 'posts ' + params.id;
+  }
 }
 
-module.exports = PostController
+module.exports = PostController;
