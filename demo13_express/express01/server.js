@@ -138,14 +138,21 @@ const multer = require('multer');
 //     res.sendfile(__dirname +'/form.html')
 // }).listen(8888)
 
-// 指定使用哪种模板引擎
-app.set("view engine",'ejs')
-// 创建views文件夹 （可以修改名字） 创建form.ejs
-app.get('/form/:name',function(req, res) {
-    let person = req.params.name
-    // 循环方式见form.ejs   
-    let data = {name:'李拴蛋',age:18,job:'搬砖',hobbie:['吃','喝','睡','玩']}
-// res.render('form',{person:person})
-    res.render('form',{data:data})
-}).listen(8888)
+// // 指定使用哪种模板引擎
+// app.set("view engine",'ejs')
+// // 创建views文件夹 （可以修改名字） 创建form.ejs
+// app.get('/form/:name',function(req, res) {
+//     let person = req.params.name
+//     // 循环方式见form.ejs   
+//     let data = {name:'李拴蛋',age:18,job:'搬砖',hobbie:['吃','喝','睡','玩']}
+// // res.render('form',{person:person})
+//     res.render('form',{data:data})
+// }).listen(8888)
+
+// // 公共模板引擎
+// app.set('view engine','ejs')
+// app.get("/about",function(req, res){
+//     res.render('about')
+// }).listen(8888)
+ 
 console.log(`server is listen port 8888`);
