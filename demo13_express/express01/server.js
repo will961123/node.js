@@ -88,13 +88,14 @@ const bodyParser = require('body-parser');
  * npm i multer (包)
  */
 
-// 先读取表单
+
 const fs = require('fs');
 const multer = require('multer');
-app.get('/form', function(req, res) {
-    let form = fs.readFileSync('./form.html', { encoding: 'utf8' });
-    res.send(form);
-}).listen(8888);
+// 先读取表单
+// app.get('/form', function(req, res) {
+//     let form = fs.readFileSync('./form.html', { encoding: 'utf8' });
+//     res.send(form);
+// }).listen(8888);
 
 // //  1.                      指定上传目录
 // let upload = multer({ dest: 'uploads/' });
@@ -104,29 +105,47 @@ app.get('/form', function(req, res) {
 //     res.send({ returnCode: 1, returnStr: '上传成功!' });
 // });
 
-// 2. 自定义上传目录
-let createFolder = function(folder) {
-    try {
-        fs.accessSync(folder);
-    } catch (e) {
-        fs.mkdirSync(folder);
-    }
-};
-let uploadFolder = './upload/';
-createFolder(uploadFolder);
-let storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, uploadFolder);
-    },
-    filename: function(req, file, cb) {
-        cb(null, Date.now() + file.originalname);
-    }
-});
-let upload = multer({ storage: storage });
-// 点击提交进入post方法
-//                          input的name值
-app.post('/upload', upload.single('logo'), function(req, res) {
-    res.send({ returnCode: 1, returnStr: '上传成功!' });
-});
+// // 2. 自定义上传目录
+// let createFolder = function(folder) {
+//     try {
+//         fs.accessSync(folder);
+//     } catch (e) {
+//         fs.mkdirSync(folder);
+//     }
+// };
+// let uploadFolder = './upload/';
+// createFolder(uploadFolder);
+// let storage = multer.diskStorage({
+//     destination: function(req, file, cb) {
+//         cb(null, uploadFolder);
+//     },
+//     filename: function(req, file, cb) {
+//         cb(null, Date.now() + file.originalname);
+//     }
+// });
+// let upload = multer({ storage: storage });
+// // 点击提交进入post方法
+// //                          input的name值
+// app.post('/upload', upload.single('logo'), function(req, res) {
+//     res.send({ returnCode: 1, returnStr: '上传成功!' });
+// });
 
+/**
+ * 模板引擎 npm i ejs
+ */
+// // 读取一个html文件 除了使用流外 还可以使用express内置方法
+// app.get('/form',function(req, res) {
+//     res.sendfile(__dirname +'/form.html')
+// }).listen(8888)
+
+// 指定使用哪种模板引擎
+app.set("view engine",'ejs')
+// 创建views文件夹 （可以修改名字） 创建form.ejs
+app.get('/form/:name',function(req, res) {
+    let person = req.params.name
+    // 循环方式见form.ejs   
+    let data = {name:'李拴蛋',age:18,job:'搬砖',hobbie:['吃','喝','睡','玩']}
+// res.render('form',{person:person})
+    res.render('form',{data:data})
+}).listen(8888)
 console.log(`server is listen port 8888`);
