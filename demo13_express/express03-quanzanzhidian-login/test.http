@@ -1,0 +1,27 @@
+@uri=http://localhost:8888/api
+@json=Content-Type: application/json
+
+### 查询全部用户
+GET {{uri}}/users
+
+### 注册
+POST {{uri}}/register
+{{json}}
+
+{
+    "username":"1",
+    "password":"1"
+}
+
+### 登录
+POST {{uri}}/login
+{{json}}
+
+{
+    "username":"1",
+    "password":"1"
+}
+
+### 授权
+GET  {{uri}}/profile
+Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYmZmMDk2ZjU3MzY0MTczNDk0NDFiNSIsImlhdCI6MTU3Mjg2MzAwMH0.HULjdPVhwz-UbQ4184u9M0bAxrKa25lLB3jjBc42bqw

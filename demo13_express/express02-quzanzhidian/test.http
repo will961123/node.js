@@ -1,0 +1,32 @@
+
+@uri = http://localhost:8888/
+
+###
+// 查询列表
+GET {{uri}}products
+
+###
+// 查询单个
+GET {{uri}}products/5dbfcfa1e428df18300bcb37
+
+###
+// 录入商品
+POST {{uri}}products
+Content-Type: application/json
+
+{
+    "title":"产品7"
+}
+
+###
+// 修改商品
+PUT {{uri}}products/5dbfcfa1e428df18300bcb37
+Content-Type: application/json
+
+{
+    "title":"产品3"
+}
+
+###
+// 删除商品
+DELETE {{uri}}products/5dbfcfd5089af90eb41416c0
