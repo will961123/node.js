@@ -13,6 +13,8 @@ const routes = [
         component: Main,
         children: [
             { path: '/categories/create', component: CategoryEdit },
+            // props : true 将parmas 的参数注入 props
+            { path: '/categories/edit/:id', component: CategoryEdit, props: true },
             { path: '/categories/list', component: CategoryList }
         ]
     }

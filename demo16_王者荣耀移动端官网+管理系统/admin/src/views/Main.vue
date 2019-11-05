@@ -5,7 +5,7 @@
         <el-menu router :defalute-active="$route.path" :default-openeds="['1' ]">
           <el-submenu index="1">
             <template slot="title">
-              <i class="el-icon-message"></i>内容管理 
+              <i class="el-icon-message"></i>内容管理
             </template>
             <el-menu-item-group>
               <template slot="title">分类</template>
@@ -29,7 +29,7 @@
           <span>王小虎</span>
         </el-header>
 
-        <el-main> 
+        <el-main>
           <router-view />
         </el-main>
       </el-container>
@@ -41,19 +41,12 @@
 <script>
 export default {
   data() {
-    const item = {
-      date: "2016-05-02",
-      name: "王小虎",
-      address: "上海市普陀区金沙江路 1518 弄"
-    };
-    return {
-      tableData: Array(20).fill(item)
-    };
+    return {};
   }
 };
 </script>
 
-<style>     
+<style>
 .el-header {
   background-color: #b3c0d1;
   color: #333;
