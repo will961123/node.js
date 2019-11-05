@@ -6,10 +6,9 @@ const app = express();
 app.use(express.json())
 app.use(cors())
 
-require('./routers/admin')(app);
-
 require('./plugins/db.js')(app);
 
+require('./routers/admin')(app);
 
 
 app.listen(8888);

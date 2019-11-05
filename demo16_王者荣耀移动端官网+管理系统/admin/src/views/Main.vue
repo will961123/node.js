@@ -2,10 +2,10 @@
   <div>
     <el-container style="height: 100vh">
       <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-        <el-menu router :default-openeds="['1' ]">
+        <el-menu router :defalute-active="$route.path" :default-openeds="['1' ]">
           <el-submenu index="1">
             <template slot="title">
-              <i class="el-icon-message"></i>内容管理
+              <i class="el-icon-message"></i>内容管理 
             </template>
             <el-menu-item-group>
               <template slot="title">分类</template>
