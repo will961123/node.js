@@ -59,3 +59,40 @@ app.post('/admin/api/upload', upload.single('flie'), async function(req, res) {
 // 前端要访问需配置静态文件托管
 app.use('/uploads', express.static(__dirname + '/uploads'));
 ```
+
+#### 连表查询
+
+-   同一张表的情况
+
+```javascript
+// 表
+const CategorySchema = new mongoose.Schema({
+    name: { type: String },
+    parent: { type: mongoose.Schema.ObjectId, ref: 'Category' }
+});
+module.exports = mongoose.model('Category', CategorySchema);
+
+// 路由
+const queryOptions = {};
+queryOptions.populate = 'parent';
+const category = await req.Model.find().setOptions(queryOptions);
+```
+
+-   不同的表的情况
+
+```javascript
+// 表
+const Category = require('./Category');
+const HeroesSchema = new mongoose.Schema({
+    name: { type: String },
+    icon: { type: String },
+    // 属于不同的表 关联前需导入
+    categories: [{ type: mongoose.Schema.ObjectId, ref: Category }]
+});
+module.exports = mongoose.model('Hero', HeroesSchema);
+
+// 路由
+const queryOptions = {};
+queryOptions.populate = 'categories';
+const category = await req.Model.find().setOptions(queryOptions);
+```
