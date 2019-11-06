@@ -1,5 +1,5 @@
 module.exports = function(app) {
-    const mongoose = require('mongoose');
+    const mongoose = require('mongoose'); 
     mongoose.connect('mongodb://localhost:27017/node-vue-moba',{ 
         useUnifiedTopology:true,
         useNewUrlParser:true

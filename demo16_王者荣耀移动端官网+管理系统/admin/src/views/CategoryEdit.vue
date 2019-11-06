@@ -4,7 +4,12 @@
     <el-form @submit.native.prevent="id?editCategory(id):save()" label-width="120px">
       <el-form-item label="上级分类">
         <el-select v-model="model.parent">
-          <el-option :label="item.name" :value="item._id" v-for="(item,index) in parents" :key="index"></el-option>
+          <el-option
+            :label="item.name"
+            :value="item._id"
+            v-for="(item,index) in parents"
+            :key="index"
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="名称">
@@ -22,6 +27,13 @@ export default {
   props: {
     id: { type: String }
   },
+  watch: {
+    id(newval) {
+      if (!newval) {
+        this.model = {};
+      }
+    }
+  },
   data() {
     return {
       model: {},
@@ -33,7 +45,7 @@ export default {
     this.model = {};
     // if (this.id) this.findOneById(this.id);
     this.id && this.findOneById(this.id);
-    this.getparents()
+    this.getparents();
   },
   methods: {
     // 方法
@@ -41,7 +53,7 @@ export default {
     // 新增单个
     async save() {
       this.loading = true;
-      const res = await this.$http.post("/categories", this.model);
+      const res = await this.$http.post("/rest/categories", this.model);
       window.console.log("新增分类", res.data);
       if (res.data.returnCode === 1) {
         this.$message({
@@ -59,7 +71,7 @@ export default {
     // 查询单个
     async findOneById(id) {
       this.loading = true;
-      const res = await this.$http.get("/categories/" + id);
+      const res = await this.$http.get("/rest/categories/" + id);
       window.console.log("查询单个分类", res.data);
       if (res.data.returnCode === 1) {
         this.model = res.data.list;
@@ -73,7 +85,7 @@ export default {
     // 修改单个
     async editCategory(id) {
       this.loading = true;
-      const res = await this.$http.put("/categories/" + id, this.model);
+      const res = await this.$http.put("/rest/categories/" + id, this.model);
       window.console.log("修改分类", res.data);
       if (res.data.returnCode === 1) {
         this.$message({
@@ -91,7 +103,7 @@ export default {
     // 获取上级分类
     async getparents() {
       this.loading = true;
-      const res = await this.$http.get("/categories/");
+      const res = await this.$http.get("/rest/categories");
       window.console.log("查询父级分类", res.data);
       if (res.data.returnCode === 1) {
         this.parents = res.data.list;

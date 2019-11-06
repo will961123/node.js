@@ -6,7 +6,7 @@
 小程序拒绝授权后重新授权 https://www.jianshu.com/p/707b3e34651c
 小程序canvas 生成图片 https://www.jianshu.com/p/01f526a4f948
 小程序前端解密unionid https://blog.csdn.net/a493001894/article/details/80323403
-小程序 录音上滑取消
+小程序 录音上滑取消 https://segmentfault.com/a/1190000016058217
 小程序 video组件总结 https://juejin.im/post/5c4ee15cf265da61193c32f2
 小程序 聊天室  https://blog.csdn.net/weixin_41326021/article/details/81004981
 小程序 授权登录页 https://www.jianshu.com/p/524c587f33d3
