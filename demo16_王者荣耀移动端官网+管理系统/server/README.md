@@ -2,7 +2,7 @@
 
 #### 封装 CRUD 通用接口例子
 
-#### inflection 处理单复数转换
+#### inflection 包 处理单复数转换
 
 -   将路由接口的 categories 去除
 -   1 在中间件的路由定义一个用去区别的参数(如：rest))和一个动态的参数(如：resourse)
@@ -14,7 +14,7 @@
 
 #### 上传图片
 
-#### 中间件 multer 处理文件
+#### 中间件 multer 包 处理文件
 
 ```javascript
 const multer = require('multer');
@@ -95,4 +95,20 @@ module.exports = mongoose.model('Hero', HeroesSchema);
 const queryOptions = {};
 queryOptions.populate = 'categories';
 const category = await req.Model.find().setOptions(queryOptions);
+```
+
+#### 散列 引入 bcrypt 包
+
+```javascript
+const AdminUserSchema = new mongoose.Schema({
+    username: { type: String },
+    password: {
+        type: String,
+        // 为false的时候 不会被查出来  所以前端不传password这个字段的话不会被修改
+        select: true,
+        set(val) {
+            return require('bcrypt').hashSync(val, 10);
+        }
+    }
+});
 ```

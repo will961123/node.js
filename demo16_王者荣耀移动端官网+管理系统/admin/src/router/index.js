@@ -17,8 +17,9 @@ import ArticleList from '../views/ArticleList.vue';
 // 广告位
 import AdEdit from '../views/AdEdit.vue';
 import AdList from '../views/AdList.vue';
-
-
+// 管理员
+import AdminUserEdit from '../views/AdminUserEdit.vue';
+import AdminUserList from '../views/AdminUserList.vue';
 
 Vue.use(VueRouter);
 
@@ -27,7 +28,7 @@ const routes = [
         path: '/',
         name: 'main',
         component: Main,
-        redirect:'/categories/create',
+        redirect: '/categories/create',
         children: [
             // 分类
             { path: '/categories/create', component: CategoryEdit },
@@ -47,17 +48,23 @@ const routes = [
             { path: '/heroes/edit/:id', component: HeroEdit, props: true },
             { path: '/heroes/list', component: HeroList },
 
-             // 文章
-             { path: '/articles/create', component: ArticleEdit },
-             // props : true 将parmas 的参数注入 props
-             { path: '/articles/edit/:id', component: ArticleEdit, props: true },
-             { path: '/articles/list', component: ArticleList },
+            // 文章
+            { path: '/articles/create', component: ArticleEdit },
+            // props : true 将parmas 的参数注入 props
+            { path: '/articles/edit/:id', component: ArticleEdit, props: true },
+            { path: '/articles/list', component: ArticleList },
 
-             // 广告位
-             { path: '/ads/create', component: AdEdit },
-             // props : true 将parmas 的参数注入 props
-             { path: '/ads/edit/:id', component: AdEdit, props: true },
-             { path: '/ads/list', component: AdList }
+            // 广告位
+            { path: '/ads/create', component: AdEdit },
+            // props : true 将parmas 的参数注入 props
+            { path: '/ads/edit/:id', component: AdEdit, props: true },
+            { path: '/ads/list', component: AdList },
+
+            // 管理员
+            { path: '/admin_users/create', component: AdminUserEdit },
+            // props : true 将parmas 的参数注入 props
+            { path: '/admin_users/edit/:id', component: AdminUserEdit, props: true },
+            { path: '/admin_users/list', component: AdminUserList }
         ]
     }
 ];
