@@ -11,6 +11,10 @@ import ItemList from '../views/ItemList.vue';
 // 英雄
 import HeroEdit from '../views/HeroEdit.vue';
 import HeroList from '../views/HeroList.vue';
+// 文章
+import ArticleEdit from '../views/ArticleEdit.vue';
+import ArticleList from '../views/ArticleList.vue';
+
 
 Vue.use(VueRouter);
 
@@ -19,6 +23,7 @@ const routes = [
         path: '/',
         name: 'main',
         component: Main,
+        redirect:'/categories/create',
         children: [
             // 分类
             { path: '/categories/create', component: CategoryEdit },
@@ -36,7 +41,13 @@ const routes = [
             { path: '/heroes/create', component: HeroEdit },
             // props : true 将parmas 的参数注入 props
             { path: '/heroes/edit/:id', component: HeroEdit, props: true },
-            { path: '/heroes/list', component: HeroList }
+            { path: '/heroes/list', component: HeroList },
+
+             // 文章
+             { path: '/articles/create', component: ArticleEdit },
+             // props : true 将parmas 的参数注入 props
+             { path: '/articles/edit/:id', component: ArticleEdit, props: true },
+             { path: '/articles/list', component: ArticleList }
         ]
     }
 ];
