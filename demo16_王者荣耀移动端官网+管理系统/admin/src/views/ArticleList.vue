@@ -3,12 +3,12 @@
     <h1>文章列表</h1>
     <el-table :data="itemList">
       <el-table-column prop="_id" label="id" width="280"></el-table-column>
-      <el-table-column prop="title" label="文章标题"></el-table-column> 
-      <el-table-column prop="icon" label="图标">
-        <template slot-scope="scope"> 
-          <img style="width:40px;height:40px" :src="imgUrl+scope.row.icon" :alt="scope.row.name"> 
+      <el-table-column prop="title" label="文章标题"></el-table-column>
+      <el-table-column prop="icon" label="文章分类">
+        <template slot-scope="scope">
+          <span v-for="(item,index) in scope.row.categories" :key="index"> {{item.name}} </span>
         </template>
-      </el-table-column> 
+      </el-table-column>
       <el-table-column fixed="right" label="操作" width="200">
         <template slot-scope="scope">
           <el-button @click="edit(scope.row._id)" type="primary" size="small">修改</el-button>
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-export default { 
+export default {
   data() {
     return {
       itemList: [],
@@ -54,7 +54,7 @@ export default {
     // 删除文章
     async del(item) {
       this.$confirm(
-        "此操作将永久删除 " + '"' + item.name + '"' + " 文章, 是否继续?",
+        "此操作将永久删除 " + '"' + item.title + '"' + " 文章, 是否继续?",
         "提示",
         {
           confirmButtonText: "确定",

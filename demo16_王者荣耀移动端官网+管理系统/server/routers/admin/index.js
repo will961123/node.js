@@ -117,11 +117,13 @@ module.exports = function(app) {
             // 需要联查的表才联查
             queryOptions.populate = 'parent';
         } else if (req.Model.modelName === 'Hero') {
-            queryOptions.populate = 'categories'; 
+            queryOptions.populate = 'categories';
+        } else if (req.Model.modelName === 'Article') {
+            queryOptions.populate = 'categories';
         }
         const category = await req.Model.find()
             .setOptions(queryOptions)
-            .limit(10); 
+            .limit(10);
         res.send({
             list: category,
             returnCode: 1,

@@ -3,6 +3,7 @@
 #### vue add element
 #### npm i axios 
 
+#### 富文本编辑器quill  npm install --save vue2-editor
 
 # admin
 

@@ -2,20 +2,21 @@
   <div v-loading="loading">
     <h1>{{id?'编辑文章':'新建文章'}}</h1>
     <el-form @submit.native.prevent="id?editCategory(id):save() " label-width="120px">
+      <el-form-item label="所属分类">
+        <el-select v-model="model.categories" multiple>
+          <el-option
+            v-for="(item,index) in categories"
+            :key="index"
+            :label="item.name"
+            :value="item._id"
+          ></el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item label="标题">
         <el-input v-model="model.title"></el-input>
       </el-form-item>
-      <el-form-item label="图标">
-        <el-upload
-          class="avatar-uploader"
-          :action="$http.defaults.baseURL+'/upload'"
-          :show-file-list="false"
-          :on-success="uploadImgSuccess"
-          :before-upload="beforeAvatarUpload"
-        >
-          <img v-if="model.icon" :src="imgUrl+model.icon" class="avatar" />
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
+      <el-form-item label="详情">
+        <VueEditor v-model="model.body" useCustomImageHandler @image-added="uploadImgSuccess" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" native-type="shbmit">确定</el-button>
@@ -25,7 +26,12 @@
 </template>
 
 <script>
+import { VueEditor } from "vue2-editor";
+
 export default {
+  components: {
+    VueEditor
+  },
   props: {
     id: { type: String }
   },
@@ -39,15 +45,30 @@ export default {
   data() {
     return {
       model: {},
+      categories: [],
       loading: false
     };
   },
   created() {
     this.model = {};
     this.id && this.findOneById(this.id);
+    this.findCategories();
   },
   methods: {
     // 方法
+
+    // 查询分类
+    async findCategories() {
+      this.loading = true;
+      const res = await this.$http.get("/rest/categories");
+      window.console.log("查询父级分类", res.data);
+      if (res.data.returnCode === 1) {
+        this.categories = res.data.list;
+      } else {
+        this.$message.error(res.data.returnStr || "查询父级失败!");
+      }
+      this.loading = false;
+    },
 
     // 新增单个
     async save() {
@@ -84,14 +105,14 @@ export default {
     // 修改单个
     async editCategory(id) {
       this.loading = true;
-      const res = await this.$http.put("/rest/items/" + id, this.model);
+      const res = await this.$http.put("/rest/articles/" + id, this.model);
       window.console.log("修改文章", res.data);
       if (res.data.returnCode === 1) {
         this.$message({
           type: "success",
           message: res.data.returnStr
         });
-        this.$router.push("/items/list");
+        this.$router.push("/articles/list");
       } else {
         this.$message.error(res.data.returnStr || "修改失败!");
       }
@@ -99,24 +120,14 @@ export default {
       this.loading = false;
     },
 
-    // 上传图片成功后
-    uploadImgSuccess(res, file) {
-      console.log("服务器返回:", res, "本地返回", file);
-      // this.model.icon = URL.createObjectURL(file.raw);
-      this.$set(this.model, "icon", res.src);
-    },
-    // 上传图片前
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg" || file.type === "image/png";
-      const isLt2M = file.size / 1024 / 1024 < 2;
-
-      if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 或 PNG 格式!");
-      }
-      if (!isLt2M) {
-        this.$message.error("上传头像图片大小不能超过 2MB!");
-      }
-      return isJPG && isLt2M;
+    // 上传富文本图片
+    async uploadImgSuccess(file, Editor, cursorLocation, resetUploader) {
+      const formData = new FormData();
+      formData.append("file", file);
+      const res = await this.$http.post("/upload", formData);
+      window.console.log("上传富文本", res);
+      Editor.insertEmbed(cursorLocation, "image", this.imgUrl+res.data.src);
+      resetUploader()
     }
   }
 };
