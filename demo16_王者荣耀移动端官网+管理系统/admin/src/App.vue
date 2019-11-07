@@ -27,18 +27,5 @@ export default {
   -moz-osx-font-smoothing: grayscale; 
   color: #2c3e50;
 }
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
-.el-header {
-  background-color: #b3c0d1;
-  color: #333;
-  line-height: 60px;
-}
 
-.el-aside {
-  color: #333;
-}
 </style>

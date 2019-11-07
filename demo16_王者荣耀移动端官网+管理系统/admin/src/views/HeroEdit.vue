@@ -15,7 +15,7 @@
               class="avatar-uploader"
               :action="$http.defaults.baseURL+'/upload'"
               :show-file-list="false"
-              :on-success="uploadImgSuccess" 
+              :on-success="uploadImgSuccess"
             >
               <img v-if="model.icon" :src="imgUrl+model.icon" class="avatar" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -75,7 +75,7 @@
         </el-tab-pane>
 
         <el-tab-pane label="技能" name="skills">
-          <el-button size='small' @click="model.skills.push({})">
+          <el-button size="small" @click="model.skills.push({})">
             <i class="el-icon-plus"></i>添加技能
           </el-button>
           <el-row type="flex" style="flex-wrap:wrap">
@@ -102,7 +102,7 @@
                 <el-input type="textarea" v-model="item.tips"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button size='small' type='danger' @click="model.skills.splice(index,1)" >删除</el-button>
+                <el-button size="small" type="danger" @click="model.skills.splice(index,1)">删除</el-button>
               </el-form-item>
             </el-col>
           </el-row>
@@ -234,6 +234,7 @@ export default {
       // this.model.icon = URL.createObjectURL(file.raw);
       this.$set(this.model, "icon", res.src);
     },
+
     // 上传图片前
     beforeAvatarUpload(file) {
       const isJPG = file.type === "image/jpeg" || file.type === "image/png";
@@ -251,28 +252,5 @@ export default {
 };
 </script>
  
-<style  >
-.avatar-uploader .el-upload {
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.avatar-uploader .el-upload:hover {
-  border-color: #409eff;
-}
-.avatar-uploader-icon {
-  font-size: 28px;
-  color: #8c939d;
-  width: 5rem;
-  height: 5rem;
-  line-height: 5rem;
-  text-align: center;
-}
-.avatar {
-  width: 5rem;
-  height: 5rem;
-  display: block;
-}
+<style> 
 </style>

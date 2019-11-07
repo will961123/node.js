@@ -14,6 +14,10 @@ import HeroList from '../views/HeroList.vue';
 // 文章
 import ArticleEdit from '../views/ArticleEdit.vue';
 import ArticleList from '../views/ArticleList.vue';
+// 广告位
+import AdEdit from '../views/AdEdit.vue';
+import AdList from '../views/AdList.vue';
+
 
 
 Vue.use(VueRouter);
@@ -47,7 +51,13 @@ const routes = [
              { path: '/articles/create', component: ArticleEdit },
              // props : true 将parmas 的参数注入 props
              { path: '/articles/edit/:id', component: ArticleEdit, props: true },
-             { path: '/articles/list', component: ArticleList }
+             { path: '/articles/list', component: ArticleList },
+
+             // 广告位
+             { path: '/ads/create', component: AdEdit },
+             // props : true 将parmas 的参数注入 props
+             { path: '/ads/edit/:id', component: AdEdit, props: true },
+             { path: '/ads/list', component: AdList }
         ]
     }
 ];
