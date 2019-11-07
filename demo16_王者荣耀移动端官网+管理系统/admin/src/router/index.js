@@ -20,15 +20,26 @@ import AdList from '../views/AdList.vue';
 // 管理员
 import AdminUserEdit from '../views/AdminUserEdit.vue';
 import AdminUserList from '../views/AdminUserList.vue';
-
+// 登录也
+import Login from '../views/Login.vue';
 Vue.use(VueRouter);
 
 const routes = [
     {
         path: '/',
+        name: 'login',
+        redirect: '/login'
+    },
+    {
+        path: '/login',
+        name: 'login',
+        component: Login
+    },
+    {
+        path: '/categories/main',
         name: 'main',
         component: Main,
-        redirect: '/categories/create',
+        redirect: '/items/list',
         children: [
             // 分类
             { path: '/categories/create', component: CategoryEdit },

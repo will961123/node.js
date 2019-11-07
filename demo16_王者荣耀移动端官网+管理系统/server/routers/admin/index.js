@@ -165,6 +165,22 @@ module.exports = function(app) {
     //                                  自定义中间件
     app.use(
         '/admin/api/rest/:resource',
+        // 校验token
+        async function(req, res, next) {
+            const token = String(req.headers.authorization || '')
+                .split(' ')
+                .pop();
+            const jwt = require('jsonwebtoken');
+            const SECRET = app.get('SECRET');
+            // 解密token
+            const tokenData = jwt.verify(token, SECRET);
+            // 查到用户
+            const AdminUser = require('../../models/AdminUser');
+            req.user = await AdminUser.findById(tokenData.id);
+            console.log(req.user);
+            next();
+        },
+        // 处理单复数
         function(req, res, next) {
             // 将小写复数categories 转为大写 Category单数
             const ModelName = require('inflection').classify(req.params.resource);
@@ -206,6 +222,7 @@ module.exports = function(app) {
     });
     const upload = multer({ storage: storage });
 
+    // 上传图片接口
     app.post('/admin/api/upload', upload.single('file'), async function(req, res) {
         const file = req.file;
         // 拼接上托管的文件夹名字
@@ -214,6 +231,42 @@ module.exports = function(app) {
             returnCode: 1,
             returnStr: '上传成功!',
             src: filePath
+        });
+    });
+    // 后台用户登录接口
+    app.post('/admin/api/login', async function(req, res) {
+        const { username, password } = req.body;
+        const AdminUser = require('../../models/AdminUser');
+        const bcrypt = require('bcrypt');
+        const jwt = require('jsonwebtoken');
+        // 1.找到用户
+        // 由于在模型中设置了密码不可被查找 所以查询需要这么做
+        const user = await AdminUser.findOne({ username: username }).select('+password');
+        if (!user || !username) {
+            return res.status(422).send({
+                returnCode: -1,
+                returnStr: '未找到该用户!'
+            });
+        }
+        // 2.比对密码
+        const isPasswordVaila = bcrypt.compareSync(password, user.password);
+        if (!isPasswordVaila || !password) {
+            return res.status(422).send({
+                returnCode: -2,
+                returnStr: '密码错误!'
+            });
+        }
+        // 3.签名并返回token
+        // 签名token   SECRET是在app实例上定义的 app.set('**','**')
+        const SECRET = app.get('SECRET');
+        const token = jwt.sign({ id: String(user._id) }, SECRET);
+        res.send({
+            returnCode: 1,
+            returnStr: '登陆成功!',
+            user: {
+                username
+            },
+            token
         });
     });
 };
