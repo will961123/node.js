@@ -2,7 +2,7 @@
   <div v-loading="loading">
     <h1>{{id?'编辑英雄':'新建英雄'}}</h1>
     <el-form @submit.native.prevent="id?editCategory(id):save() " label-width="120px">
-      <el-tabs type="border-card" value="skills">
+      <el-tabs type="border-card" value="basic">
         <el-tab-pane label="基本信息" name="basic">
           <el-form-item label="名称">
             <el-input v-model="model.name"></el-input>

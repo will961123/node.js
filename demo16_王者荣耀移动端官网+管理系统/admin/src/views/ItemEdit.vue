@@ -43,6 +43,11 @@ export default {
     };
   },
   created() {
+    if(!localStorage.token){
+      this.$message.error("token不存在!")
+      this.$router.push('/login')
+      return
+    }
     this.model = {};
     this.id && this.findOneById(this.id);
   },
