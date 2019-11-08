@@ -173,3 +173,68 @@ async function(req, res, next) {
     next();
 }
 ```
+
+#### 服务端登录校验 http-assert 包 判断条件是否满足 不满足抛出异常 定义全局处理异常中间件处理异常
+
+```javascript
+const assert = require('http-assert');
+async function(req, res, next) {
+    const token = String(req.headers.authorization || '')
+        .split(' ')
+        .pop();
+    // 抛出token不存在的异常
+    assert(token, 401, { returnCode: -1, returnStr: 'token不存在!' });
+    const jwt = require('jsonwebtoken');
+    const SECRET = app.get('SECRET');
+    // 解密token
+    const tokenData = jwt.verify(token, SECRET);
+    // 查到用户
+    const AdminUser = require('../../models/AdminUser');
+    req.user = await AdminUser.findById(tokenData.id);
+    // 用户不存在抛出异常让后续中间件捕获
+    assert(req.user, 401, { returnCode: -1, returnStr: '用户不存在!' });
+    next();
+};
+
+ // 定义错误处理中间件 4个参数表示错误处理  此中间件要单独拿出来放在接口后
+ app.use(async function(err, req, res, next) {
+    console.dir(err);
+    res.status(err.statusCode || 500).send({
+        returnStr: err.returnStr || err.message,
+        returnCode: err.returnCode
+    });
+ });
+```
+
+#### 将自定义的中间件统一放到 middleware 文件夹统一管理
+
+```javaScript
+// 导出一个函数 函数的返回值是一个函数 使用时可以定义options传入配置
+module.exports = options => {
+    const jwt = require('jsonwebtoken');
+    const assert = require('http-assert');
+    const AdminUser = require('../models/AdminUser');
+    return async function(req, res, next) {
+        // 此时app可以通过从req的挂载上取到
+        const SECRET = req.app.get('SECRET');
+        const token = String(req.headers.authorization || '')
+            .split(' ')
+            .pop();
+        // 抛出token不存在的异常
+        assert(token, 401, { returnCode: -1, returnStr: 'token不存在!' });
+
+        // 解密token
+        const tokenData = jwt.verify(token, SECRET);
+
+        req.user = await AdminUser.findById(tokenData.id);
+        // 用户不存在抛出异常让后续中间件捕获
+        assert(req.user, 401, { returnCode: -1, returnStr: '用户不存在!' });
+        next();
+    };
+};
+
+const authMiddleware = require('../../middleware/auth');
+
+//                                  使用自定义中间件
+app.use('/admin/api/rest/:resource', authMiddleware(), resourceMiddleware(), Router);
+```

@@ -5,7 +5,7 @@
       <el-form-item label="账号">
         <el-input v-model="model.username"></el-input>
       </el-form-item>
-      <el-form-item label="账号">
+      <el-form-item label="密码">
         <el-input v-model="model.password"></el-input>
       </el-form-item>
       <el-form-item>
