@@ -20,7 +20,7 @@ import AdList from '../views/AdList.vue';
 // 管理员
 import AdminUserEdit from '../views/AdminUserEdit.vue';
 import AdminUserList from '../views/AdminUserList.vue';
-// 登录也
+// 登录页
 import Login from '../views/Login.vue';
 Vue.use(VueRouter);
 
