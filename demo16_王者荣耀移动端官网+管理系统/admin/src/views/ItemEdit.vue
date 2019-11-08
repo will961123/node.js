@@ -12,6 +12,7 @@
           :show-file-list="false"
           :on-success="uploadImgSuccess"
           :before-upload="beforeAvatarUpload"
+          :headers="getAuthHeaders()"
         >
           <img v-if="model.icon" :src="imgUrl+model.icon" class="avatar" />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -35,19 +36,14 @@ export default {
         this.model = {};
       }
     }
-  },
+  }, 
   data() {
     return {
       model: {},
       loading: false
     };
   },
-  created() {
-    if(!localStorage.token){
-      this.$message.error("token不存在!")
-      this.$router.push('/login')
-      return
-    }
+  created() { 
     this.model = {};
     this.id && this.findOneById(this.id);
   },
@@ -106,8 +102,7 @@ export default {
 
     // 上传图片成功后
     uploadImgSuccess(res, file) {
-      console.log("服务器返回:", res, "本地返回", file);
-      // this.model.icon = URL.createObjectURL(file.raw);
+      console.log("服务器返回:", res, "本地返回", file);  
       this.$set(this.model, "icon", res.src);
     },
     // 上传图片前

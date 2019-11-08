@@ -16,6 +16,7 @@
               :action="$http.defaults.baseURL+'/upload'"
               :show-file-list="false"
               :on-success="uploadImgSuccess"
+              :headers="auther"
             >
               <img v-if="model.icon" :src="imgUrl+model.icon" class="avatar" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -90,6 +91,7 @@
                   :show-file-list="false"
                   :on-success="res=>$set(item,'icon',res.src)"
                   :before-upload="beforeAvatarUpload"
+                  :headers="getAuthHeaders()"
                 >
                   <img v-if="item.icon" :src="imgUrl+item.icon" class="avatar" />
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -130,7 +132,7 @@ export default {
         };
       }
     }
-  },
+  }, 
   data() {
     return {
       model: {

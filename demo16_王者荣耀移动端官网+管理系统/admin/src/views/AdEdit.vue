@@ -23,6 +23,7 @@
                 :show-file-list="false"
                 :on-success="res=>$set(item,'image',res.src) "
                 :before-upload="beforeAvatarUpload"
+                :headers="getAuthHeaders()"
               >
                 <img style="width:auto" v-if="item.image" :src="imgUrl+item.image" class="avatar" />
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -57,7 +58,7 @@ export default {
         };
       }
     }
-  },
+  }, 
   data() {
     return {
       model: {

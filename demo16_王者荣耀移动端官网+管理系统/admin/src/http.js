@@ -11,7 +11,7 @@ http.interceptors.response.use(
     res => {
         return res;
     },
-    err => {
+    err => { 
         if (err.response.data.returnStr) {
             Vue.prototype.$message.error(err.response.data.returnStr);
         }
@@ -24,8 +24,8 @@ http.interceptors.response.use(
 );
 // axios 请求拦截器全局处理请求加上token
 http.interceptors.request.use(
-    config => {
-        if (localStorage.token) {
+    config => { 
+        if (localStorage.token) { 
             config.headers.Authorization = 'Bearer ' + localStorage.token;
         }
         return config;

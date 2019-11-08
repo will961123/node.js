@@ -44,32 +44,88 @@ http.interceptors.request.use(
 );
 ```
 
+#### vue 全局代码块
+
+```javaScript
+Vue.mixin({
+    // 可以写data methods 等
+    methods: {
+        getAuthHeaders() {
+            if (localStorage.token) {
+                return {
+                    Authorization: 'Bearer ' + (localStorage.token || '')
+                };
+            } else {
+                return {};
+            }
+        }
+    }
+});
+```
+
+#### 前端路由校验
+
+````javaScript
+const routes = [
+    {
+        path: '/',
+        name: 'login',
+        redirect: '/login',
+        // 前端路由校验
+        meta: {
+            isPublic: true
+        }
+    }
+];
+const router = new VueRouter({
+    routes
+});
+// 全局路由守卫
+router.beforeEach((to, from, next) => {
+    if (!to.meta.isPublic && !localStorage.token) {
+        Vue.prototype.$message.error("token不存在!")
+        return next('/login');
+    }
+    next();
+});
+export default router;
+    ```
+
 # admin
 
 ## Project setup
 
-```
+````
+
 npm install
+
 ```
 
 ### Compiles and hot-reloads for development
 
 ```
+
 npm run serve
+
 ```
 
 ### Compiles and minifies for production
 
 ```
+
 npm run build
+
 ```
 
 ### Lints and fixes files
 
 ```
+
 npm run lint
+
 ```
 
 ### Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
+```

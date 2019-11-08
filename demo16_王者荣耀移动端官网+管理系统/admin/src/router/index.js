@@ -28,12 +28,19 @@ const routes = [
     {
         path: '/',
         name: 'login',
-        redirect: '/login'
+        redirect: '/login',
+        // 前端路由校验
+        meta: {
+            isPublic: true
+        }
     },
     {
         path: '/login',
         name: 'login',
-        component: Login
+        component: Login,
+        meta: {
+            isPublic: true
+        }
     },
     {
         path: '/categories/main',
@@ -83,5 +90,12 @@ const routes = [
 const router = new VueRouter({
     routes
 });
-
+// 全局路由守卫
+router.beforeEach((to, from, next) => {
+    if (!to.meta.isPublic && !localStorage.token) {
+        Vue.prototype.$message.error("token不存在!")
+        return next('/login');
+    }
+    next();
+});
 export default router;

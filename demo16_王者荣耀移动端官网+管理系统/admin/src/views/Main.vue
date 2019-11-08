@@ -58,12 +58,10 @@
           <el-dropdown>
             <i class="el-icon-setting" style="margin-right: 15px"></i>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>查看</el-dropdown-item>
-              <el-dropdown-item>新增</el-dropdown-item>
-              <el-dropdown-item>删除</el-dropdown-item>
+              <el-dropdown-item @click.native="Logout">退出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
-          <span>王小虎</span>
+          <span>{{username}}</span>
         </el-header>
 
         <el-main>
@@ -81,9 +79,24 @@ export default {
     return {
       selectidx: ["1"]
     };
+  },
+  computed: {
+    username() { 
+      return localStorage.username;
+    }
+  },
+  methods: {
+    Logout() {
+      localStorage.clear();
+      this.$router.push('/login')
+      this.$message({
+        type:'success',
+        message:"退出登录成功!"
+      })
+    }
   }
 };
 </script>
 
-<style>
+<style scoped > 
 </style>

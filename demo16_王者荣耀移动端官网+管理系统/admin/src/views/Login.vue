@@ -40,6 +40,7 @@ export default {
             message:"登陆成功!",
             type:'success'
         })
+        localStorage.username = res.data.user.username
       }
     }
   }

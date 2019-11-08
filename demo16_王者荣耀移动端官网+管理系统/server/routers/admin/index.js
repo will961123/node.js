@@ -232,10 +232,10 @@ module.exports = function(app) {
     const upload = multer({ storage: storage });
 
     // 上传图片接口
-    app.post('/admin/api/upload', authMiddleware, upload.single('file'), async function(
+    app.post('/admin/api/upload', authMiddleware(), upload.single('file'), async function(
         req,
         res
-    ) {
+    ) { 
         const file = req.file;
         // 拼接上托管的文件夹名字
         const filePath = '/uploads/' + file.filename;
