@@ -12,9 +12,13 @@ module.exports = options => {
         assert(token, 401, { returnCode: -1, returnStr: 'token不存在!' });
 
         // 解密token
-        const tokenData = jwt.verify(token, SECRET);
+        try {
+            const tokenData = jwt.verify(token, SECRET);
+            req.user = await AdminUser.findById(tokenData.id);
+        } catch (err) {
+            assert(false, 401, { returnCode: -1, returnStr: '无效的token!' });
+        }
 
-        req.user = await AdminUser.findById(tokenData.id);
         // 用户不存在抛出异常让后续中间件捕获
         assert(req.user, 401, { returnCode: -1, returnStr: '用户不存在!' });
         next();

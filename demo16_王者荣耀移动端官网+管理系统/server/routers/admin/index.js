@@ -292,7 +292,7 @@ module.exports = function(app) {
 
     // 定义错误处理中间件 4个参数表示错误处理  此中间件要单独拿出来放在接口后
     app.use(async function(err, req, res, next) {
-        console.dir(err);
+        // console.dir(err);
         res.status(err.statusCode || 500).send({
             returnStr: err.returnStr || err.message,
             returnCode: err.returnCode
