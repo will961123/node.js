@@ -3,6 +3,7 @@ $colors: (
     primary: #d69e3f,
     'white': #fff,
     'light': #f9f9f9,
+    'light-1': #d4d9de,
     'grey': #999,
     'grey-1': #666,
     'dark-1': #343440,
@@ -10,7 +11,7 @@ $colors: (
     'black': #000,
     info: #4b67af
 );
-
+$border-color: map-get($colors, 'light-1');
 // 定义字体大小
 // vscode 插件 px 2 rem
 $base-font-size: 1rem;
