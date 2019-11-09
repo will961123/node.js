@@ -198,6 +198,7 @@ module.exports = function(app) {
     const resourceMiddleware = require('../../middleware/resource');
 
     //                                  使用自定义中间件
+    // app.use('/admin/api/rest/:resource', authMiddleware, resourceMiddleware, Router);
     app.use('/admin/api/rest/:resource', authMiddleware(), resourceMiddleware(), Router);
 
     /**

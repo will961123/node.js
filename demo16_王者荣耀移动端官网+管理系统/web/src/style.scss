@@ -1,0 +1,153 @@
+// 重置样式
+* {
+    box-sizing: border-box;
+    outline: none;
+}
+html {
+    font-size: 13px;
+}
+body {
+    padding: 0;
+    margin: 0;
+    font-family: Arial Helvetica sans-serif;
+    line-height: 1.2em;
+    background: #f1f1f1;
+}
+
+// 定义颜色
+$colors: (
+    primary: #d69e3f,
+    'white': #fff,
+    'light': #f9f9f9,
+    'grey': #999,
+    'dark-1': #343440,
+    'dark': #222,
+    'black': #000
+);
+// 颜色工具类
+@each $colorKey, $color in $colors {
+    .text-#{$colorKey} {
+        color: $color;
+    }
+    .bg-#{$colorKey} {
+        background-color: $color;
+    }
+}
+
+// 文本对齐工具类
+@each $var in (left, center, right) {
+    .text-#{$var} {
+        text-align: $var;
+    }
+}
+
+// 定义字体大小
+// vscode 插件 px 2 rem
+$base-font-size: 1rem;
+$font-sizes: (
+    xs: 0.769231 /* 10/13 */,
+    sm: 0.923077 /* 12/13 */,
+    md: 1,
+    lg: 1.076923 /* 14/13 */,
+    xl: 1.230769 /* 16/13 */
+);
+// 文本字体工具类
+@each $sizeKey, $size in $font-sizes {
+    .fs-#{$sizeKey} {
+        font-size: $size * $base-font-size;
+    }
+}
+
+// flex
+.d-flex {
+    display: flex;
+}
+.flex-column {
+    flex-direction: column;
+}
+.flex-1 {
+    flex: 1;
+}
+// 定义主轴对齐方式
+$flex-jc: (
+    start: flex-start,
+    end: flex-end,
+    center: center,
+    between: space-between,
+    around: space-around
+);
+// 主轴对齐工具类
+@each $jc-key, $jc-value in $flex-jc {
+    .jc-#{$jc-key} {
+        justify-content: $jc-value;
+    }
+}
+
+// 定义侧轴对齐方式
+$flex-ai: (
+    start: flex-start,
+    end: flex-end,
+    center: center,
+    stretch: stretch // 侧轴等高
+);
+// 侧轴对齐工具类
+@each $ai-key, $ai-value in $flex-ai {
+    .ai-#{$ai-key} {
+        align-items: $ai-value;
+    }
+}
+
+// 边距
+// 定义边距类比
+$space-type: (
+    m: margin,
+    p: padding
+);
+// 定义边距方向
+$space-directionsL: (
+    t: top,
+    b: bottom,
+    l: left,
+    r: right
+);
+// 定义边距尺寸
+$base-space-size: 1rem;
+$space-size: (
+    0: 0,
+    1: 0.25,
+    2: 0.5,
+    3: 1,
+    4: 1.5,
+    5: 3
+);
+// 边距工具类
+@each $space-type-key, $space-type-value in $space-type {
+    @each $space-size-key, $space-size-value in $space-size {
+        // m-0 {margin:0}
+        .#{$space-type-key}-#{$space-size-key} {
+            #{$space-type-value}: $space-size-value * $base-space-size;
+        }
+    }
+
+    @each $space-size-key, $space-size-value in $space-size {
+        // mx-0 {margin-left:0;margin-right: 0;}
+        .#{$space-type-key}x-#{$space-size-key} {
+            #{$space-type-value}-left: $space-size-value * $base-space-size;
+            #{$space-type-value}-right: $space-size-value * $base-space-size;
+        }
+        .#{$space-type-key}y-#{$space-size-key} {
+            #{$space-type-value}-top: $space-size-value * $base-space-size;
+            #{$space-type-value}-bottom: $space-size-value * $base-space-size;
+        }
+    }
+
+    @each $space-directionsL-key, $space-directionsL-value in $space-directionsL {
+        @each $space-size-key, $space-size-value in $space-size {
+            // ml-0 {margin-left: 0}
+            .#{$space-type-key}#{$space-directionsL-key}-#{$space-size-key} {
+                #{$space-type-value}-#{$space-directionsL-value}: $space-size-value *
+                    $base-space-size;
+            }
+        }
+    }
+}

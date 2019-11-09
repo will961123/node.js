@@ -65,7 +65,7 @@ Vue.mixin({
 
 #### 前端路由校验
 
-````javaScript
+```javaScript
 const routes = [
     {
         path: '/',
@@ -89,7 +89,7 @@ router.beforeEach((to, from, next) => {
     next();
 });
 export default router;
-    ```
+```
 
 # admin
 
