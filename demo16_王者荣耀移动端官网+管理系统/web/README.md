@@ -1,4 +1,8 @@
-#### sass sass-loder  -D  （文件是 scss）
+#### vue create admin
+
+#### vue add router 不用 history 模式
+
+#### npm i sass sass-loder  -D  （文件是 scss）
 
 
 
