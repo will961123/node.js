@@ -27,10 +27,10 @@
 
     <!-- 新闻列表资讯卡片 -->
     <m-list-card icon="menu" title="新闻资讯" :categories="NewsData">
-      <!-- #表示要与某一个solt关联 并从中取值-->
+      <!-- #表示要与某一个slot关联 并从中取值-->
       <template #items="{category}">
         <div v-for="(itm,idx) in category.Newslist" :key="idx" class="py-2">
-          <span>[{{itm.name}}]</span>
+          <span>{{itm.name}}</span>
           <span>{{itm.title}}</span>
           <span>{{itm.date}}</span>
         </div>
