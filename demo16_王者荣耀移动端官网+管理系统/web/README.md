@@ -4,7 +4,7 @@
 
 #### npm i sass sass-loder  -D  （文件是 scss）
 
-
+#### npm i vue-awesome-swiper --save (main.js 全局引用)
 
 
 

@@ -15,17 +15,9 @@ body {
     background: #f1f1f1;
 }
 
-// 定义颜色
-$colors: (
-    primary: #d69e3f,
-    'white': #fff,
-    'light': #f9f9f9,
-    'grey': #999,
-    'grey-1': #666,
-    'dark-1': #343440,
-    'dark': #222,
-    'black': #000
-);
+// 引入变量
+@import './variables';
+
 // 颜色工具类
 @each $colorKey, $color in $colors {
     .text-#{$colorKey} {
@@ -39,28 +31,23 @@ $colors: (
 // 文本对齐工具类
 @each $var in (left, center, right) {
     .text-#{$var} {
-        text-align: $var;
+        text-align: $var !important;
     }
 }
 
-// 定义字体大小
-// vscode 插件 px 2 rem
-$base-font-size: 1rem;
-$font-sizes: (
-    xxs: 0.615385 /* 8/13 */,
-    xs: 0.769231 /* 10/13 */,
-    sm: 0.923077 /* 12/13 */,
-    md: 1,
-    lg: 1.076923 /* 14/13 */,
-    xl: 1.230769 /* 16/13 */
-);
 // 文本字体工具类
 @each $sizeKey, $size in $font-sizes {
     .fs-#{$sizeKey} {
         font-size: $size * $base-font-size;
     }
 }
-
+// white height
+.w-100 {
+    width: 100%;
+}
+.h-100 {
+    height: 100%;
+}
 // flex
 .d-flex {
     display: flex;
@@ -71,14 +58,7 @@ $font-sizes: (
 .flex-1 {
     flex: 1;
 }
-// 定义主轴对齐方式
-$flex-jc: (
-    start: flex-start,
-    end: flex-end,
-    center: center,
-    between: space-between,
-    around: space-around
-);
+
 // 主轴对齐工具类
 @each $jc-key, $jc-value in $flex-jc {
     .jc-#{$jc-key} {
@@ -86,13 +66,6 @@ $flex-jc: (
     }
 }
 
-// 定义侧轴对齐方式
-$flex-ai: (
-    start: flex-start,
-    end: flex-end,
-    center: center,
-    stretch: stretch // 侧轴等高
-);
 // 侧轴对齐工具类
 @each $ai-key, $ai-value in $flex-ai {
     .ai-#{$ai-key} {
@@ -100,29 +73,6 @@ $flex-ai: (
     }
 }
 
-// 边距
-// 定义边距类比
-$space-type: (
-    m: margin,
-    p: padding
-);
-// 定义边距方向
-$space-directionsL: (
-    t: top,
-    b: bottom,
-    l: left,
-    r: right
-);
-// 定义边距尺寸
-$base-space-size: 1rem;
-$space-size: (
-    0: 0,
-    1: 0.25,
-    2: 0.5,
-    3: 1,
-    4: 1.5,
-    5: 3
-);
 // 边距工具类
 @each $space-type-key, $space-type-value in $space-type {
     @each $space-size-key, $space-size-value in $space-size {
