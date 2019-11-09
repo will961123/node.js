@@ -160,4 +160,16 @@ $space-size: (
     border: none;
     border-radius: 0.153846rem /* 2/13 */;
     font-size: map-get($font-sizes, 'sm') * $base-font-size;
+    padding: 0.2rem 0.6rem;
+}
+
+// nav
+.nav {
+    .nav-item {
+        border-bottom: 3px solid transparent;
+        padding-bottom: 0.2rem;
+        &.active {
+            border-bottom: 3px solid #fff;
+        }
+    }
 }
