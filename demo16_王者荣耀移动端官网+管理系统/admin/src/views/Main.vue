@@ -65,7 +65,10 @@
         </el-header>
 
         <el-main>
-          <router-view />
+          <!-- 路由的区分方式默认是按页面区分的 可以通过key来指定通过路径来区分  -->
+          <!-- 比如物品编辑跳到新建物品 路由变化将id给去掉了 但数据模型还在所以会有bug --> 
+          <!-- 这样不用每个页面watch id 是否存在了了 -->
+          <router-view :key="$route.path" />
         </el-main>
       </el-container>
     </el-container>

@@ -4,4 +4,8 @@ module.exports = function(app) {
         useUnifiedTopology:true,
         useNewUrlParser:true
     })
+ 
+    // 在a模型里面查找关联的b模型 需要引入b模型 我们可以在数据库直接把所有模型引入
+    // npm i require-all 
+    require('require-all')(__dirname+'/../models')
 };

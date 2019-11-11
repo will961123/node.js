@@ -14,5 +14,7 @@ require('./plugins/db.js')(app);
 
 require('./routers/admin')(app);
 
+require('./routers/web')(app);
+
 app.listen(8888);
 console.log('htpp://localhost:8888');

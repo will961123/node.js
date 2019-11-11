@@ -95,6 +95,16 @@ module.exports = mongoose.model('Hero', HeroesSchema);
 const queryOptions = {};
 queryOptions.populate = 'categories';
 const category = await req.Model.find().setOptions(queryOptions);
+
+/**
+ * 另外一种解决方式
+ * npm i require-all
+ * 在数据库
+ */
+
+require('require-all')(__dirnam + '/../models');
+// 这样其他表就不用引用关联表了
+categories: [{ type: mongoose.Schema.ObjectId, ref: "Category" }]
 ```
 
 #### 散列 引入 bcrypt 包
@@ -221,8 +231,8 @@ module.exports = options => {
             .split(' ')
             .pop();
         // 抛出token不存在的异常
-        assert(token, 401, { returnCode: -1, returnStr: 'token不存在!' }); 
-        
+        assert(token, 401, { returnCode: -1, returnStr: 'token不存在!' });
+
         // 解密token
         try {
             const tokenData = jwt.verify(token, SECRET);

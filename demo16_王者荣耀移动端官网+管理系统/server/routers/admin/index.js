@@ -124,7 +124,7 @@ module.exports = function(app) {
         }
         const category = await req.Model.find()
             .setOptions(queryOptions)
-            .limit(10);
+            .limit(100);
         res.send({
             list: category,
             returnCode: 1,

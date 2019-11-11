@@ -19,14 +19,7 @@
 export default {
   props: {
     id: { type: String }
-  },
-  watch: {
-    id(newval) {
-      if (!newval) {
-        this.model = {};
-      }
-    }
-  },
+  }, 
   data() {
     return {
       model: {},

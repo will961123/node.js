@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="topbar bg-black py-2 px-3 d-flex ai-center">
-      <img src="../images/logo.png" height="30" alt />
+      <img src="../assets/images/logo.png" height="30" alt />
       <div class="px-2 flex-1">
         <div class="text-white">王者荣耀</div>
         <div class="text-grey-1 fs-xxs">团队成就更多</div>
@@ -29,3 +29,12 @@
 <script>
 export default {};
 </script>
+
+<style lang="scss">
+.topbar {
+  // 较新的浏览器支持
+  position: sticky;
+  top: 0;
+  z-index: 99;
+}
+</style>

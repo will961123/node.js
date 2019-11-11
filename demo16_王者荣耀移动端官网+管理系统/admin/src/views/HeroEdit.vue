@@ -16,7 +16,7 @@
               :action="$http.defaults.baseURL+'/upload'"
               :show-file-list="false"
               :on-success="uploadImgSuccess"
-              :headers="auther"
+              :headers="getAuthHeaders()"
             >
               <img v-if="model.icon" :src="imgUrl+model.icon" class="avatar" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -123,16 +123,6 @@ export default {
   props: {
     id: { type: String }
   },
-  watch: {
-    id(newval) {
-      if (!newval) {
-        this.model = {
-          scores: {},
-          skills: []
-        };
-      }
-    }
-  }, 
   data() {
     return {
       model: {

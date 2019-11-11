@@ -3,10 +3,10 @@
     <!-- swiper -->
     <swiper :options="swiperOption">
       <swiper-slide>
-        <img class="w-100" src="../images/sw1.jpeg" alt />
+        <img class="w-100" src="../assets/images/sw1.jpeg" alt />
       </swiper-slide>
       <swiper-slide>
-        <img class="w-100" src="../images/sw1.jpeg" alt />
+        <img class="w-100" src="../assets/images/sw1.jpeg" alt />
       </swiper-slide>
       <div class="swiper-pagination pagination-home text-right px-3 pb-1" slot="pagination"></div>
     </swiper>
@@ -53,7 +53,7 @@ export default {
         {
           name: "热门",
           Newslist: new Array(5).fill({
-            name: "公告",
+            name: "热门",
             title: "11月5日全服不停机更新公告",
             date: "06/05"
           })
@@ -61,7 +61,7 @@ export default {
         {
           name: "新闻",
           Newslist: new Array(5).fill({
-            name: "公告",
+            name: "新闻",
             title: "11月5日全服不停机更新公告",
             date: "06/05"
           })
@@ -125,7 +125,7 @@ export default {
 
 // 精灵图
 .sprite {
-  background: url(../images/sprite.png) no-repeat 0 0;
+  background: url(../assets/images/sprite.png) no-repeat 0 0;
   background-size: 28.846154rem /* 375/13 */;
   display: inline-block;
   &.sprite-news {
