@@ -1,3 +1,4 @@
+// 物品表
 const mongoose = require('mongoose');
 const ItemsSchema = new mongoose.Schema({
     name: { type: String },

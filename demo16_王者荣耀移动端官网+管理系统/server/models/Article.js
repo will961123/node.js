@@ -1,3 +1,4 @@
+// 文章表
 const mongoose = require('mongoose');
 const Category = require('./Category');
 

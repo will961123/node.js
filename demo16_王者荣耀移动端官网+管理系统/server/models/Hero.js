@@ -1,3 +1,4 @@
+// 英雄表
 const mongoose = require('mongoose');
 // const Category = require('./Category')
 const HeroesSchema = new mongoose.Schema({

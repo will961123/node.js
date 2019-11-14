@@ -1,3 +1,4 @@
+// 广告位表
 const mongoose = require('mongoose');
 const AdSchema = new mongoose.Schema({
     name: { type: String },
