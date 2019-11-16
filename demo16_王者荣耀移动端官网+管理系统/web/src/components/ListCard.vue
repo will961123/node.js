@@ -8,11 +8,12 @@
         :key="index"
         :class="{active:active===index}"
       >
-        <div @click="active=index" class="nav-link">{{item.name}}</div>
+        <!-- <div @click="active=index" class="nav-link">{{item.name}}</div> -->
+        <div @click="$refs.list.swiper.slideTo(index)" class="nav-link">{{item.name}}</div>
       </div>
     </div>
     <div class="pt-3">
-      <swiper>
+      <swiper ref="list" @slide-change="()=>active=$refs.list.swiper.realIndex">
         <swiper-slide v-for="(item,index) in categories " :key="index">
           <!-- <div v-for="(itm,idx) in item.Newslist" :key="idx" class="py-2">
               <span>{{itm.name}}</span>

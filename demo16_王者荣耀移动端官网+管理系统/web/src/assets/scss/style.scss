@@ -41,6 +41,12 @@ body {
         font-size: $size * $base-font-size;
     }
 }
+.tetx-ellipsis{
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 // white height
 .w-100 {
     width: 100%;

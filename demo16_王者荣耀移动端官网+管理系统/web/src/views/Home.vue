@@ -29,10 +29,11 @@
     <m-list-card icon="menu" title="新闻资讯" :categories="NewsData">
       <!-- #表示要与某一个slot关联 并从中取值-->
       <template #items="{category}">
-        <div v-for="(itm,idx) in category.Newslist" :key="idx" class="py-2">
-          <span>{{itm.name}}</span>
-          <span>{{itm.title}}</span>
-          <span>{{itm.date}}</span>
+        <div v-for="(itm,idx) in category.newsList" :key="idx" class="py-2 fs-lg d-flex">
+          <span class="text-info">[{{itm.categoryName}}]</span>
+          <span class="px-2">|</span>
+          <span class="flex-1 text-dark-1 tetx-ellipsis pr-2">{{itm.title}}</span>
+          <span class="text-grey fs-sm ">{{itm.createdAt|date}}</span>
         </div>
       </template>
     </m-list-card>
@@ -40,6 +41,7 @@
 </template>
 
 <script>
+import dayjs from "dayjs";
 export default {
   name: "home",
   data() {
@@ -49,49 +51,24 @@ export default {
           el: ".pagination-home"
         }
       },
-      NewsData: [
-        {
-          name: "热门",
-          Newslist: new Array(5).fill({
-            name: "热门",
-            title: "11月5日全服不停机更新公告",
-            date: "06/05"
-          })
-        },
-        {
-          name: "新闻",
-          Newslist: new Array(5).fill({
-            name: "新闻",
-            title: "11月5日全服不停机更新公告",
-            date: "06/05"
-          })
-        },
-        {
-          name: "热门",
-          Newslist: new Array(5).fill({
-            name: "公告",
-            title: "11月5日全服不停机更新公告",
-            date: "06/05"
-          })
-        },
-        {
-          name: "热门",
-          Newslist: new Array(5).fill({
-            name: "公告",
-            title: "11月5日全服不停机更新公告",
-            date: "06/05"
-          })
-        },
-        {
-          name: "热门",
-          Newslist: new Array(5).fill({
-            name: "公告",
-            title: "11月5日全服不停机更新公告",
-            date: "06/05"
-          })
-        }
-      ]
+      NewsData: []
     };
+  },
+  filters: {
+    date(val) {
+      // 返回两位数的月份和日期
+      return dayjs(val).format("MM/DD");
+    }
+  },
+  created() {
+    this.getNewsList();
+  },
+  methods: {
+    async getNewsList() {
+      const res = await this.$http.get("/news/list");
+      window.console.log(res.data);
+      this.NewsData = res.data;
+    }
   }
 };
 </script>
