@@ -26,5 +26,14 @@ CategorySchema.virtual("newsList", {
   justOne: false,
   ref: "Article"
 });
+CategorySchema.virtual("heroList", {
+  // 这个虚拟字段的作用查出来与这个 _id 关联的英雄
+  // 本地键
+  localField: "_id",
+  // 外键
+  foreignField: "categories",
+  justOne: false,
+  ref: "Hero"
+});
 
 module.exports = mongoose.model("Category", CategorySchema);

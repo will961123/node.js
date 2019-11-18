@@ -13,7 +13,7 @@
 
     <!-- 图标导航 -->
     <div class="nav-icons bg-white mt-3 text-center pt-3 text-dark-1">
-      <div class="d-flex felx-wrap">
+      <div class="d-flex flex-wrap">
         <div class="nav-item mb-3" v-for="(item,index) in 10 " :key="index">
           <i class="sprite sprite-news"></i>
           <div class="py-2">爆料站</div>
@@ -29,11 +29,35 @@
     <m-list-card icon="menu" title="新闻资讯" :categories="NewsData">
       <!-- #表示要与某一个slot关联 并从中取值-->
       <template #items="{category}">
-        <div v-for="(itm,idx) in category.newsList" :key="idx" class="py-2 fs-lg d-flex">
+        <router-link
+          tag="div"
+          :to="`/articles/${itm._id}`"
+          v-for="(itm,idx) in category.newsList"
+          :key="idx"
+          class="py-2 fs-lg d-flex"
+        >
           <span class="text-info">[{{itm.categoryName}}]</span>
           <span class="px-2">|</span>
-          <span class="flex-1 text-dark-1 tetx-ellipsis pr-2">{{itm.title}}</span>
-          <span class="text-grey fs-sm ">{{itm.createdAt|date}}</span>
+          <span class="flex-1 text-dark-1 text-ellipsis pr-2">{{itm.title}}</span>
+          <span class="text-grey fs-sm">{{itm.createdAt|date}}</span>
+        </router-link>
+      </template>
+    </m-list-card>
+
+    <!-- 英雄列表卡片 -->
+    <m-list-card icon="card-hero" title="英雄列表" :categories="HeroData">
+      <!-- #表示要与某一个slot关联 并从中取值-->
+      <template #items="{category}">
+        <div class="d-flex flex-wrap" style="margin:0 -0.5rem">
+          <div
+            class="p-2 text-center"
+            style="width:20%"
+            v-for="(hero,index) in category.heroList"
+            :key="index"
+          >
+            <img class="w-100" :src="hero.icon" />
+            <div>{{hero.name}}</div>
+          </div>
         </div>
       </template>
     </m-list-card>
@@ -51,7 +75,8 @@ export default {
           el: ".pagination-home"
         }
       },
-      NewsData: []
+      NewsData: [],
+      HeroData: []
     };
   },
   filters: {
@@ -62,12 +87,20 @@ export default {
   },
   created() {
     this.getNewsList();
+    this.getHeroList();
   },
   methods: {
+    // 新闻列表
     async getNewsList() {
       const res = await this.$http.get("/news/list");
-      window.console.log(res.data);
+      window.console.log("新闻列表", res.data);
       this.NewsData = res.data;
+    },
+    // 英雄列表
+    async getHeroList() {
+      const res = await this.$http.get("/heroes/list");
+      window.console.log("英雄列表", res.data);
+      this.HeroData = res.data;
     }
   }
 };
