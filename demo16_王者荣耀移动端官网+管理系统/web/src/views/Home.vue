@@ -49,15 +49,17 @@
       <!-- #表示要与某一个slot关联 并从中取值-->
       <template #items="{category}">
         <div class="d-flex flex-wrap" style="margin:0 -0.5rem">
-          <div
+          <router-link
             class="p-2 text-center"
             style="width:20%"
             v-for="(hero,index) in category.heroList"
             :key="index"
+            tag="div"
+            :to="`/heroes/${hero._id}`"
           >
             <img class="w-100" :src="hero.icon" />
             <div>{{hero.name}}</div>
-          </div>
+          </router-link>
         </div>
       </template>
     </m-list-card>

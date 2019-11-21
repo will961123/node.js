@@ -6,6 +6,23 @@
       <div class="fs-sm text-grey">{{model.createdAt|date()}}</div>
     </div>
     <div v-html="model.body" class="px-3 fs-lg body"></div>
+    <div class="p-3 moreinfo">
+      <div class="d-flex ai-center">
+        <i class="iconfont icon-menu"></i>
+        <span class="ml-2 text-info fs-lg">相关资讯</span>
+      </div>
+      <div class="pt-2 fs-lg">
+        <router-link
+          :to="`/articles/${item._id}`"
+          tag="div"
+          v-for="(item,index) in model.related"
+          :key="index"
+          class="py-1"
+        >
+          <div class="text-ellipsis w-100">{{item.title}}</div>
+        </router-link>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -18,6 +35,9 @@ export default {
       required: true
     }
   },
+  watch: {
+    id: "getNewsDetail"
+  },
   data() {
     return {
       model: ""
@@ -25,7 +45,7 @@ export default {
   },
   filters: {
     date(val) {
-      return dayjs(val).format("YY/MM/DD");
+      return dayjs(val).format("YY年MM月DD日 HH:MM");
     }
   },
   created() {
@@ -62,6 +82,9 @@ export default {
       width: 100%;
       height: auto;
     }
+  }
+  .moreinfo {
+    border-top: 2px solid $border-color;
   }
 }
 </style>

@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const HeroesSchema = new mongoose.Schema({
   name: { type: String },
   icon: { type: String },
+  banner: { type: String },
   // 属于不同的表 关联前需导入
   // categories: [{ type: mongoose.Schema.ObjectId, ref: Category }],
   // 在数据库引入require-all 就不需要在每个表引入其他表了

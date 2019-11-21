@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 
 import Main from "../views/Main.vue";
 import Article from "../views/Aritcle.vue";
+import Hero from "../views/Hero.vue";
 
 Vue.use(VueRouter);
 
@@ -22,6 +23,11 @@ const routes = [
         props: true
       }
     ]
+  },
+  {
+    path: "/heroes/:id",
+    component: Hero,
+    props: true
   }
 ];
 

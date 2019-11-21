@@ -931,8 +931,19 @@ module.exports = function(app) {
 
   // 查询文章详情
   Router.get("/articles/list/:id", async function(req, res) {
-    const articles = await Article.findById(req.params.id);
+    const articles = await Article.findById(req.params.id).lean();
+    articles.related = await Article.find()
+      .where({
+        categories: { $in: articles.categories }
+      })
+      .limit(2);
     res.send(articles);
+  });
+
+  // 查询英雄详情
+  Router.get("/heroes/list/:id", async function(req, res) {
+    const heroes = await Hero.findById(req.params.id).lean()
+    res.send(heroes)
   });
   app.use("/web/api", Router);
 };
