@@ -109,6 +109,12 @@
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
               </el-form-item>
+              <el-form-item label="冷却值">
+                <el-input v-model="item.delay"></el-input>
+              </el-form-item>
+              <el-form-item label="消耗">
+                <el-input v-model="item.cost"></el-input>
+              </el-form-item>
               <el-form-item label="描述">
                 <el-input type="textarea" v-model="item.description"></el-input>
               </el-form-item>
@@ -117,6 +123,32 @@
               </el-form-item>
               <el-form-item>
                 <el-button size="small" type="danger" @click="model.skills.splice(index,1)">删除</el-button>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-tab-pane>
+
+        <el-tab-pane label="最佳拍档" name="partners">
+          <el-button size="small" @click="model.partners.push({})">
+            <i class="el-icon-plus"></i>添加英雄
+          </el-button>
+          <el-row type="flex" style="flex-wrap:wrap">
+            <el-col :md="12" v-for="(item,index) in model.partners" :key="index">
+              <el-form-item label="名称">
+                <el-select filterable  v-model="item.hero">
+                  <el-option
+                    v-for="(hero,index) in heroes"
+                    :key="index"
+                    :label="hero.name"
+                    :value="hero._id"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="小提示">
+                <el-input type="textarea" v-model="item.description"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button size="small" type="danger" @click="model.partners.splice(index,1)">删除</el-button>
               </el-form-item>
             </el-col>
           </el-row>
@@ -139,10 +171,12 @@ export default {
     return {
       model: {
         scores: {},
-        skills: []
+        skills: [],
+        partners: []
       },
       categories: [],
       items: [],
+      heroes: [],
       loading: false
     };
   },
@@ -150,6 +184,7 @@ export default {
     this.id && this.findOneById(this.id);
     this.findCategories();
     this.findItems();
+    this.findHeroes()
   },
   methods: {
     // 方法
@@ -174,6 +209,19 @@ export default {
       window.console.log("查询装备列表", res.data);
       if (res.data.returnCode === 1) {
         this.items = res.data.list;
+      } else {
+        this.$message.error(res.data.returnStr || "查询失败!");
+      }
+      this.loading = false;
+    },
+
+    // 查询英雄列表
+    async findHeroes() {
+      this.loading = true;
+      const res = await this.$http.get("/rest/heroes");
+      window.console.log("查询英雄列表", res.data);
+      if (res.data.returnCode === 1) {
+        this.heroes = res.data.list;
       } else {
         this.$message.error(res.data.returnStr || "查询失败!");
       }

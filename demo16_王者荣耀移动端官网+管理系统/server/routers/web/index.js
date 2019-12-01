@@ -942,8 +942,10 @@ module.exports = function(app) {
 
   // 查询英雄详情
   Router.get("/heroes/list/:id", async function(req, res) {
-    const heroes = await Hero.findById(req.params.id).lean()
-    res.send(heroes)
+    const heroes = await Hero.findById(req.params.id)
+      .populate("categories")
+      .lean();
+    res.send(heroes);
   });
   app.use("/web/api", Router);
 };

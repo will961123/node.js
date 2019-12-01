@@ -9,7 +9,9 @@ $colors: (
     'dark-1': #343440,
     'dark': #222,
     'black': #000,
-    info: #4b67af
+    info: #4b67af,
+    danger:#f56c6c,
+    blue:#409eff
 );
 $border-color: map-get($colors, 'light-1');
 // 定义字体大小
