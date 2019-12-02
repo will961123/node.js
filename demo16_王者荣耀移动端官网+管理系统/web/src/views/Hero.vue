@@ -22,10 +22,94 @@
             <span>生存</span>
             <span class="badge bg-dark">{{model.scores.survive}}</span>
           </div>
-          <router-link to="/" tag="span" class="text-grey">皮肤 : 2</router-link>
+          <router-link to="/" tag="span" class="text-grey">皮肤 : 2 &gt;</router-link>
         </div>
       </div>
     </div>
+
+    <!-- 顶部banner结束 -->
+    <div class="bg-white px-2">
+      <div class="nav jc-around pt-3 pb-2 border-bottom">
+        <div class="nav-item active">
+          <div class="nav-link">英雄初识</div>
+        </div>
+        <div class="nav-item">
+          <div class="nav-link">进阶攻略</div>
+        </div>
+      </div>
+    </div>
+    <swiper>
+      <swiper-slide v-if="model.skills">
+        <div>
+          <div class="p-3 bg-white border-bottom">
+            <div class="d-flex jc-between">
+              <router-link tag="button" to="/" class="btn btn-lg flex-1">
+                <i class="iconfont icon-menu"></i>
+                英雄介绍视频
+              </router-link>
+              <router-link tag="button" to="/" class="btn btn-lg flex-1 ml-2">
+                <i class="iconfont icon-menu"></i>
+                一图识英雄
+              </router-link>
+            </div>
+
+            <div class="d-flex mt-3 jc-around skills">
+              <img
+                @click="skillsIndx=index"
+                class="icon"
+                :class="{'select':skillsIndx===index }"
+                v-for="(item,index) in model.skills"
+                :key="index"
+                :src="imgUrl+item.icon"
+                width="60"
+                height="60"
+              />
+            </div>
+            <div class="d-flex ai-center">
+              <h3>{{model.skills[skillsIndx].name}}</h3>
+              <span
+                class="ml-3 text-grey-1"
+              >(冷却：{{model.skills[skillsIndx].cost}} 消耗：{{model.skills[skillsIndx].delay}})</span>
+            </div>
+            <div class="pb-2 border-bottom">{{model.skills[skillsIndx].description}}</div>
+            <div class="pt-2 text-grey">{{model.skills[skillsIndx].tips}}</div>
+          </div>
+
+          <m-card plain icon="menu" class="hero-items" title="出装推荐">
+            <div class="border-bottom pb-3">
+              <div class="fs-xl">顺风出装</div>
+              <div class="d-flex text-center jc-around mt-3">
+                <div class="item" v-for="(item,index ) in model.items1" :key="index">
+                  <img :src="imgUrl+item.icon" alt />
+                  <div class="mt-2 fs-sm text-grey-1">{{item.name}}</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pb-3 mt-3">
+              <div class="fs-xl">逆风出装</div>
+              <div class="d-flex text-center jc-around mt-3">
+                <div class="item" v-for="(item,index ) in model.items2" :key="index">
+                  <img :src="imgUrl+item.icon" alt />
+                  <div class="mt-2 fs-sm text-grey-1">{{item.name}}</div>
+                </div>
+              </div>
+            </div>
+          </m-card>
+          <m-card plain icon="menu" title="使用技巧">{{model.usageTips}}</m-card>
+          <m-card plain icon="menu" title="对抗技巧">{{model.battleTips}}</m-card>
+          <m-card plain icon="menu" title="团战思路">{{model.teamTips}}</m-card>
+          <m-card plain icon="menu" title="英雄关系" class="partner-items">
+            <div class="fs-xl mb-2">最佳搭档</div>
+            <div class="item d-flex mt-3" v-for="(item,index) in model.partners" :key="index">
+              <img :src="item.hero.icon" alt />
+              <p class="fs-sm m-0 ml-2 flex-1 ">{{item.description}}</p>
+            </div>
+          </m-card>
+        </div>
+      </swiper-slide>
+      <swiper-slide></swiper-slide>
+    </swiper>
   </div>
 </template>
 
@@ -40,7 +124,8 @@ export default {
   watch: {},
   data() {
     return {
-      model: ""
+      model: "",
+      skillsIndx: 0
     };
   },
   created() {
@@ -79,6 +164,36 @@ export default {
       border-radius: 50%;
       margin: 0 0.2em;
       font-size: 0.75rem;
+      border: 1px solid #fff;
+    }
+  }
+
+  .border-bottom {
+    border-bottom: 1px solid $border-color;
+  }
+
+  .skills {
+    img.icon {
+      border: 3px solid map-get($colors, "white");
+      &.select {
+        border-color: map-get($colors, "primary");
+        border-radius: 45%;
+      }
+    }
+  }
+
+  .hero-items {
+    img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+    }
+  }
+
+  .partner-items {
+    img {
+      width: 60px;
+      height: 60px;
     }
   }
 }

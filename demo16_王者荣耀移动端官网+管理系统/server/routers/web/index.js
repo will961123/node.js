@@ -943,7 +943,7 @@ module.exports = function(app) {
   // 查询英雄详情
   Router.get("/heroes/list/:id", async function(req, res) {
     const heroes = await Hero.findById(req.params.id)
-      .populate("categories")
+      .populate("categories items1 items2 partners.hero")
       .lean();
     res.send(heroes);
   });
