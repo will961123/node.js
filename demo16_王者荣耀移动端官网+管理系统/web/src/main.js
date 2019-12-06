@@ -22,7 +22,8 @@ Vue.use(VueAwesomeSwiper);
 
 import http from "./http";
 Vue.prototype.$http = http;
-Vue.prototype.imgUrl = 'http://localhost:8888';
+// Vue.prototype.imgUrl = 'http://localhost:8888';
+Vue.prototype.imgUrl = process.env.VUE_APP_IMG_URL || "http://test.localhost-8080.cn:8888" 
 
 new Vue({
   router,
