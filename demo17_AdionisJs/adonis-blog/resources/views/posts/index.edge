@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>showzeng's blog</title>
+
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->   
+    
+    {{--  列表页css  --}}
+    <link rel="stylesheet" href="/css/articles.css">  
+  </head>
+
+  <body>
+    <div class="header">
+      <a href="/">showzeng's blog</a>
+      <a href="/archive">归档</a>
+      <a href="/categories">分类</a>
+      <a href="/about">关于</a>
+    </div>
+
+    <div class="article-content">
+      
+        @each(post in postsList)  
+        <article class="article-block">
+            <a href="/posts/{{post._id}}">
+                <div class="article-header">
+                    <p class="article-title">{{post.title}}</p>
+                    <p class="article-date">{{post.created_at}}</p>
+                </div>
+            </a>  
+            <div class="article-excerpt">
+                <p>{{post.synopsis}}</p>
+            </div>
+            
+        </article>
+        @endeach 
+       
+    </div>
+
+    <footer>
+        <section class="copyright">
+            <p>Copyright &copy; 2016-2019 showzeng | Powered by
+                <a href="https://jekyllrb.com/" target="_blank">Jekyll</a>
+                | Theme
+                <a href="https://github.com/showzeng/minimalism" target="_blank">Minimalism</a>
+            </p>
+        </section>
+    </footer> 
+
+    {{--  禁止右键  --}}
+    <script src="/js/lock_menu.js"></script>   
+
+  </body>
+</html>

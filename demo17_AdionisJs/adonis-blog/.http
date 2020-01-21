@@ -1,0 +1,29 @@
+@uri = http://127.0.0.1:8888/admin/api/
+ 
+### 列表
+GET {{uri}}posts
+
+### 查询单个
+GET {{uri}}posts/5e26b5cba9c0762a9c1eaee8
+
+### 新增
+POST {{uri}}posts
+Content-Type: application/json
+
+{
+    "title":"第一篇文章",
+    "synopsis":"这是第一篇文章的简介哈哈😄",
+    "content": "<p><h2 id='前言'>前言</h2></p><p>这是第一篇文章的主要内容哈哈</p><p><h2 id='段落'>段落2</h2><p>段落内容</p><p><img src='https://www.z4a.net/images/2019/03/23/style-logos-product-anatomy-components-perspective.png'  /></p>    "
+}
+ 
+
+### 修改
+PUT {{uri}}posts/5e26b5cba9c0762a9c1eaee8
+Content-Type: application/json
+
+{
+    "title":"第三篇修改"
+}
+
+### 删除单个
+DELETE {{uri}}posts/5e26d62807c7301940454481

@@ -15,9 +15,21 @@
 
 const Route = use('Route')
 
-Route.get('/', ({ request }) => {
-  return { greeting: 'Hello world in JSON' }
-})
+// 路由 控制器.方法
+Route.get('/', "SiteController.index")
+Route.get('/login', "SiteController.login")
+// get传参
+Route.get('/posts', "Postcontroller.index")
+// 路由传参
+Route.get('/posts/:id', "PostController.show")
+
+
+// 后台接口
+Route.get('/admin/api/index',"Admin/SiteController.index") 
+// Route.get('/admin/api/posts',"Admin/PostController.index")
+Route.resource('/admin/api/posts',"Admin/PostController") 
+
+
 
 // Uncomment the following code to test with mongodb
 

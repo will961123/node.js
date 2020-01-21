@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> 
+       {{postDetail.title}} 
+    </title>
+
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]--> 
+      
+    {{--  详情主css  --}}
+    <link rel="stylesheet" href="/css/post.css">
+    {{--  prism代码高亮插件  --}}
+    <link rel="stylesheet" href="/css/prism.css"> 
+    <link rel="stylesheet" href="/css/prism-line-numbers.css"> 
+    <link rel="stylesheet" href="/css/markdown.css">   
+  </head>
+
+  <body>
+    <header>
+      <div class="title">
+        <a href="/posts/{{postDetail._id}}"> 
+          {{postDetail.title}}  
+        </a>
+        <span class="title-tip">返回首页</span>
+      </div>
+
+      <p id="author" style="display: none"> 
+        showzeng 
+      </p>
+
+      <div class="article-title-description">
+        <p>{{postDetail.created_at}}</p>
+      </div>
+
+    </header>
+
+    <div class="page-content">
+        <div class="content" id="post-content">
+            {{{postDetail.content}}}
+          
+            <script>
+            function showComment() {
+                if(document.getElementById("comment").style.display=="none") {
+                document.getElementById("comment").style.display="block";
+                document.getElementById("btn-show-comment").style.display="none";
+                }
+            }
+
+            function showReward() {
+                if (document.getElementsByClassName("reward-qr-code")[0].style.display=="none" ) {
+                document.getElementsByClassName("reward-qr-code")[0].style.display="block";
+                } else {
+                document.getElementsByClassName("reward-qr-code")[0].style.display="none";
+                }
+            }
+            </script>
+        </div>
+    </div>
+
+    <title></title>
+
+    <footer>
+        <section class="copyright">
+            <p>Copyright &copy; 2016-2019 showzeng | Powered by
+                <a href="https://jekyllrb.com/" target="_blank">Jekyll</a>
+                | Theme
+                <a href="https://github.com/showzeng/minimalism" target="_blank">Minimalism</a>
+            </p>
+        </section>
+    </footer>
+
+    {{--  prism代码高亮插件  --}}
+    <script src="/js/prism.js"></script> 
+    <script src="/js/prism-line-numbers.js"></script> 
+    {{--  图片缩放预览插件  --}}
+    <script src="/js/zooming.min.js"></script> 
+    {{--  调用zooming插件  --}}
+    <script src="/js/post_content_init.js"></script>  
+    {{--  禁止右键  --}}
+    <script src="/js/lock_menu.js"></script>  
+    {{--  复制文本时触发  --}}
+    <script src="/js/copy_with_declaration.js"></script>  
+        
+  </body>
+</html>
