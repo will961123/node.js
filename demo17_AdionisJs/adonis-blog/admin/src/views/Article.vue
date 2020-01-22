@@ -1,5 +1,5 @@
 <template>
-  <div class="view-list">
+  <div class="view-article">
     <el-form ref="form" :model="model" label-width="80px">
       <el-form-item label="文章标题">
         <el-input v-model="model.title" placeholder="请输入文章标题"></el-input>
@@ -22,11 +22,12 @@
       </el-form-item>
       <el-form-item>
         <el-button
+          :disabled="canSave"
           type="primary"
           @click="id ? upLoadArticle() : createArticle()"
           >{{ id ? "立即修改" : "立即创建" }}</el-button
         >
-        <el-button>取消</el-button>
+        <el-button @click="() => $router.go(-1)">取消</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -35,12 +36,12 @@
 <script>
 import { VueEditor } from "vue2-editor";
 export default {
+  name: "Article",
   props: {
     id: {
       type: String
     }
   },
-  name: "Article",
   components: {
     // eslint-disable-next-line vue/no-unused-components
     VueEditor
@@ -49,6 +50,11 @@ export default {
     return {
       model: {}
     };
+  },
+  computed: {
+    canSave() {
+      return !this.model.title || !this.model.synopsis || !this.model.content;
+    }
   },
   created() {
     console.log(``, this.$route.path);
@@ -64,13 +70,13 @@ export default {
     upLoadArticle() {
       this.$http.put("/posts/" + this.id, this.model).then(res => {
         console.log("修改", res);
-        this.$router.push("/list");
+        this.$router.go(-1);
       });
     },
     createArticle() {
       this.$http.post("/posts", this.model).then(res => {
         console.log("新增", res);
-        this.$router.push("/list");
+        this.$router.go(-1);
       });
     }
   }
@@ -78,7 +84,8 @@ export default {
 </script>
 
 <style scoped>
-.view-list {
-  width: 100%;
+.view-article {
+  padding-top: 30px;
+  margin-left: 20px;
 }
 </style>

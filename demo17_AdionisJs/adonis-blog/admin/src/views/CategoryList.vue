@@ -3,13 +3,14 @@
     <el-container>
       <el-container>
         <el-main>
-          <el-table :data="articlesList">
+          <el-table :data="articlesList.data">
             <el-table-column
               prop="created_at"
               label="创建日期"
+              width="160"
             ></el-table-column>
-            <el-table-column prop="title" label="文章标题"></el-table-column>
-            <el-table-column prop="synopsis" label="简介"></el-table-column>
+            <el-table-column prop="title" label="分类名称"></el-table-column>
+            <el-table-column prop="parent" label="上级"></el-table-column>
 
             <el-table-column label="操作">
               <template slot-scope="scope">
@@ -25,6 +26,26 @@
         </el-main>
       </el-container>
     </el-container>
+
+    <el-pagination
+      background
+      layout="prev, pager, next"
+      :total="articlesList.total"
+      :page-size="articlesList.perPage"
+      @current-change="currentChange"
+      @prev-click="
+        () => {
+          offset -= 1;
+          getList();
+        }
+      "
+      @next-click="
+        () => {
+          offset += 1;
+          getList();
+        }
+      "
+    ></el-pagination>
   </div>
 </template>
 
@@ -34,26 +55,31 @@ export default {
   data() {
     return {
       articlesList: [],
-      loading: false
+      loading: false,
+      offset: 1
     };
   },
   created() {
-    this.getAllList();
+    this.getList();
   },
   methods: {
-    getAllList() {
-      this.$http.get("posts").then(res => {
-        console.log(`查询全部列表`, res);
-        this.articlesList = res.data.data;
+    currentChange(offset) {
+      this.offset = offset;
+      this.getList();
+    },
+    getList() {
+      this.$http.get("categories?offset=" + this.offset).then(res => {
+        console.log(`查询列表`, res);
+        this.articlesList = res.data;
       });
     },
     edit(item) {
       console.log(``, item);
-      this.$router.push("/articles/edit/" + item._id);
+      this.$router.push("/categories/edit/" + item._id);
     },
     async del(item) {
       const loading = await this.$confirm(
-        "此操作将永久删除 " + '"' + item.title + '"' + " 文章, 是否继续?",
+        "此操作将永久删除 " + '"' + item.title + '"' + " 分类, 是否继续?",
         "提示",
         {
           confirmButtonText: "确定",
@@ -62,11 +88,10 @@ export default {
         }
       );
       if (loading) {
-        this.loading = true;
-        this.$http.delete("posts/" + item._id).then(res => {
+        this.$http.delete("categories/" + item._id).then(res => {
           console.log(`删除单个`, res);
           this.loading = false;
-          this.getAllList();
+          this.getList();
         });
       }
     }
@@ -77,5 +102,6 @@ export default {
 <style scoped>
 .view-list {
   width: 100%;
+  padding-bottom: 50px;
 }
 </style>

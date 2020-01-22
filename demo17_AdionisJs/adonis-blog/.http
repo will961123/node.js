@@ -1,7 +1,7 @@
 @uri = http://127.0.0.1:8888/admin/api/
  
 ### 列表
-GET {{uri}}posts
+GET {{uri}}posts?offset=1&limit=10
 
 ### 查询单个
 GET {{uri}}posts/5e26b5cba9c0762a9c1eaee8

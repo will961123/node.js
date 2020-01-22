@@ -28,6 +28,7 @@ Route.get('/posts/:id', "PostController.show")
 Route.get('/admin/api/index',"Admin/SiteController.index") 
 // Route.get('/admin/api/posts',"Admin/PostController.index")
 Route.resource('/admin/api/posts',"Admin/PostController") 
+Route.resource('/admin/api/categories',"Admin/CategoryController") 
 
 
 
