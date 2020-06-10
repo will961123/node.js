@@ -1,0 +1,66 @@
+@uri = http://localhost:8080
+@json=Content-Type: application/json
+
+### 分类接口
+GET {{uri}}/category
+###
+POST {{uri}}/category
+{{json}}
+
+{
+    "name":"李拴蛋",
+    "password":"王花花"
+}
+###
+PUT {{uri}}/category/233
+{{json}}
+
+{   
+    "name":"李拴蛋",
+    "password":"王花花"
+}
+###
+DELETE  {{uri}}/category/233 
+###
+
+
+
+### 文章接口
+GET {{uri}}/post
+###
+POST {{uri}}/post
+{{json}}
+
+{
+    "title": "mongodb 入门",
+    "author": {
+        "name": "李拴蛋",
+        "avatar": "https://localhost:8080"
+    },
+    "cretedAt": "2020-06-04",
+    "content": "mongodb 是文档为存储结构的数据库",
+    "comments": [{
+        "user": "王花花",
+        "comment": "评论1"
+    }, {
+        "user": "张二狗",
+        "comment": "评论2"
+    }]
+}
+###
+PUT {{uri}}/post/5ed9c2384d74f02cf43090fe
+{{json}}
+
+{   
+    "title":"mongodb 入门到托坑"
+}
+###
+DELETE  {{uri}}/post/5ed9c2384d74f02cf43090fe
+###
+DELETE  {{uri}}/post/5ed9c2cc4fae2059c05cc766/common
+{{json}}
+
+{
+    "user":"张二狗"
+}
+###
