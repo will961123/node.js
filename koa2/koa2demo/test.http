@@ -1,0 +1,36 @@
+@uri = http://localhost:3000
+@json=Content-Type: application/json 
+
+###
+POST {{uri}}/users/addPerson
+{{json}}
+
+{
+    "name":"张大强",
+    "age":20
+} 
+
+###
+POST {{uri}}/users/getPerson
+{{json}}
+
+{
+    "name":"李拴蛋" 
+} 
+
+###
+POST {{uri}}/users/updatePerson
+{{json}}
+
+{
+    "name":"李拴蛋" ,
+    "age":999
+} 
+
+###
+POST {{uri}}/users/removePerson
+{{json}}
+
+{
+    "name":"王花花"  
+} 
