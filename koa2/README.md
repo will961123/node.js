@@ -196,4 +196,4 @@ get 一条session // 查看session详情
 
 ```javascript
 vue init nuxt-community/koa-template
-```
+``` 
