@@ -1,10 +1,7 @@
 import Koa from 'koa'
 import { Nuxt, Builder } from 'nuxt'
 
-import cityInterface from './interface/city'
-
-// eslint-disable-next-line
-async function start () {
+async function start() {
   const app = new Koa()
   const host = process.env.HOST || '127.0.0.1'
   const port = process.env.PORT || 3000
@@ -21,8 +18,6 @@ async function start () {
     const builder = new Builder(nuxt)
     await builder.build()
   }
-
-  app.use(cityInterface.routes()).use(cityInterface.allowedMethods())
 
   app.use(ctx => {
     ctx.status = 200

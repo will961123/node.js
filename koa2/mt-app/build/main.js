@@ -97,10 +97,22 @@ module.exports =
 
 module.exports = {
   /*
+  ** Nuxt rendering mode
+  ** See https://nuxtjs.org/api/configuration-mode
+  */
+  mode: 'universal',
+
+  /*
+  ** Nuxt target
+  ** See https://nuxtjs.org/api/configuration-target
+  */
+  target: 'server',
+
+  /*
   ** Headers of the page
   */
   head: {
-    title: 'nuxt-title',
+    title: 'starter',
     meta: [{
       charset: 'utf-8'
     }, {
@@ -121,7 +133,13 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: ['~assets/css/main.css'],
+  css: ['element-ui/lib/theme-chalk/reset.css', 'element-ui/lib/theme-chalk/index.css', '~assets/css/main.css'],
+
+  /*
+  ** Plugins to load before mounting the App
+  ** https://nuxtjs.org/guide/plugins
+  */
+  plugins: ['@/plugins/element-ui'],
 
   /*
   ** Customize the progress-bar color
@@ -137,7 +155,7 @@ module.exports = {
     /*
      ** Run ESLINT on save
      */
-    // extend (config, ctx) {
+    // extend(config, ctx) {
     //   if (ctx.isClient) {
     //     config.module.rules.push({
     //       enforce: 'pre',
@@ -147,7 +165,16 @@ module.exports = {
     //     })
     //   }
     // }
-  }
+    cache: true,
+    transpile: [/^element-ui/]
+  },
+
+  /*
+    ** Nuxt.js modules
+    */
+  modules: [// Doc: https://axios.nuxtjs.org/usage
+  '@nuxtjs/axios'],
+  axios: {}
 };
 
 /***/ }),
@@ -165,10 +192,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var koa__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(koa__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var nuxt__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! nuxt */ "nuxt");
 /* harmony import */ var nuxt__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(nuxt__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _interface_city__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./interface/city */ "./server/interface/city.js");
 
 
- // eslint-disable-next-line
 
 async function start() {
   const app = new koa__WEBPACK_IMPORTED_MODULE_0___default.a();
@@ -186,7 +211,6 @@ async function start() {
     await builder.build();
   }
 
-  app.use(_interface_city__WEBPACK_IMPORTED_MODULE_2__["default"].routes()).use(_interface_city__WEBPACK_IMPORTED_MODULE_2__["default"].allowedMethods());
   app.use(ctx => {
     ctx.status = 200;
     ctx.respond = false; // Mark request as handled for Koa
@@ -203,28 +227,6 @@ start();
 
 /***/ }),
 
-/***/ "./server/interface/city.js":
-/*!**********************************!*\
-  !*** ./server/interface/city.js ***!
-  \**********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var koa_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! koa-router */ "koa-router");
-/* harmony import */ var koa_router__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(koa_router__WEBPACK_IMPORTED_MODULE_0__);
-
-const router = new koa_router__WEBPACK_IMPORTED_MODULE_0___default.a({
-  prefix: '/city'
-});
-router.get('/list', async ctx => {
-  ctx.body = ['北京', '天津'];
-});
-/* harmony default export */ __webpack_exports__["default"] = (router);
-
-/***/ }),
-
 /***/ "koa":
 /*!**********************!*\
   !*** external "koa" ***!
@@ -233,17 +235,6 @@ router.get('/list', async ctx => {
 /***/ (function(module, exports) {
 
 module.exports = require("koa");
-
-/***/ }),
-
-/***/ "koa-router":
-/*!*****************************!*\
-  !*** external "koa-router" ***!
-  \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("koa-router");
 
 /***/ }),
 
